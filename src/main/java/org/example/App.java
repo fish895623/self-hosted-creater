@@ -2,10 +2,7 @@ package org.example;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -20,7 +17,8 @@ public class App {
 
   public static void main(String[] args) throws Exception {
     App httpsConn = new App();
-    String getData = httpsConn.getHttpGET("https://api.github.com/users/fish895623/repos");
+    StringBuilder getData = httpsConn.getHttpGET("fish895623");
+    httpsConn.saveFile(getData);
 
     httpsConn.using_JsonParser2("json_github2.json");
     httpsConn.using_JsonParser2("json_github.json");
@@ -34,7 +32,7 @@ public class App {
     }
   }
 
-  private String getHttpGET(String username) throws Exception {
+  private StringBuilder getHttpGET(String username) throws Exception {
     String apiAddress = "https://api.github.com/users/" + username + "/repos";
 
     URL obj = new URL(apiAddress);
@@ -57,6 +55,17 @@ public class App {
     }
     in.close();
 
-    return response.toString();
+    return response;
   }
+
+  private void saveFile(StringBuilder stringBuilder) {
+    File file = new File("json_github.json");
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+      writer.write(stringBuilder.toString());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

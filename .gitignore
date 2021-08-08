@@ -1,6 +1,7 @@
 .idea/
 target/
 *.json
+.vscode/
 
 # eclipse
 .classpath
@@ -8,5 +9,6 @@ target/
 .settings/
 
 # gradle
-build/
 .gradle/
+build/
+bin/

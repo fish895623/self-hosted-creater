@@ -1,27 +1,45 @@
-apply plugin: 'java'
-apply plugin: 'application'
-
-mainClassName   = 'org.example.App'
-version         = '0.0.1-snapshot'
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'application'
+    id "com.github.johnrengelman.shadow" version "7.0.0"
+}
 
 repositories {
-    jcenter()
-    mavenCentral()
+    mavenLocal()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
 }
 
 dependencies {
-    compile 'com.google.guava:guava:23.0'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.google.code.gson:gson:2.8.7'
+    testImplementation 'junit:junit:4.11'
+}
 
-    compile 'com.google.code.gson:gson:2.8.7'
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+description = 'untitled3'
+
+application {
+    mainClass = 'org.example.App'
 }
 
 jar {
+    finalizedBy shadowJar
     manifest {
-        attributes 'Main-Class': mainClassName
+        attributes "Main-Class": 'org.example.App'
     }
-    dependsOn configurations.runtime
-    from {
-        configurations.compile.collect {it.isDirectory()? it: zipTree(it)}
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
     }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }

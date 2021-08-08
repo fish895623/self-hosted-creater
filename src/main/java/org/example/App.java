@@ -42,7 +42,7 @@ public class App {
     con.setConnectTimeout(10000); // 컨텍션타임아웃 10초
     con.setReadTimeout(5000); // 컨텐츠조회 타임아웃 5총
 
-    int responseCode = con.getResponseCode();
+    // int responseCode = con.getResponseCode();
 
     Charset charset = StandardCharsets.UTF_8;
     BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), charset));

@@ -3,15 +3,15 @@ package org.example;
 import com.google.gson.annotations.SerializedName;
 
 public class JsonGithub {
-  private int id;
-  private String node_id;
-  private String name;
-  private String full_name;
+  protected int id;
+  protected String node_id;
+  protected String name;
+  protected String full_name;
   // SerializedName make you able to use Keywords
   @SerializedName("private")
   private boolean isPrivate;
 
-  private void set_id(int id) {
+  public void set_id(int id) {
     this.id = id;
   }
 

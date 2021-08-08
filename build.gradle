@@ -1,0 +1,27 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName   = 'org.example.App'
+version         = '0.0.1-snapshot'
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.guava:guava:23.0'
+    testCompile 'junit:junit:4.12'
+
+    compile 'com.google.code.gson:gson:2.8.7'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    dependsOn configurations.runtime
+    from {
+        configurations.compile.collect {it.isDirectory()? it: zipTree(it)}
+    }
+}

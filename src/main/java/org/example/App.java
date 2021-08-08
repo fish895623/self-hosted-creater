@@ -19,7 +19,6 @@ public class App {
     StringBuilder getData = httpsConn.getHttpGET("fish895623");
     httpsConn.saveFile(getData);
 
-    httpsConn.using_JsonParser2("json_github2.json");
     httpsConn.using_JsonParser2("json_github.json");
   }
 

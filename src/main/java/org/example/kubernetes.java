@@ -2,6 +2,7 @@ package org.example;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
@@ -22,7 +23,7 @@ public class kubernetes {
 
         V1PodList list = api.listPodForAllNamespaces(null, null, null, null, null, null, null, null, null, null);
         for (V1Pod item : list.getItems()) {
-            System.out.println(item.getMetadata().getName());
+            System.out.println(Objects.requireNonNull(item.getMetadata()).getName());
         }
     }
 }

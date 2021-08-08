@@ -24,7 +24,7 @@ dependencies {
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
-description = "untitled3"
+description = "self-hosted-creator"
 
 application {
     mainClass.set("org.example.App")

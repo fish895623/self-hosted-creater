@@ -22,4 +22,4 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: ${{ matrix.java }}
-      - run: mvn -B package
+      - run: mvn package

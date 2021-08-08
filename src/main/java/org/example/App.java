@@ -14,7 +14,6 @@ import java.nio.charset.StandardCharsets;
 public class App {
   public static final java.lang.String USER_AGENT = "Mozilla/5.0";
 
-
   public static void main(String[] args) throws Exception {
     App httpsConn = new App();
     StringBuilder getData = httpsConn.getHttpGET("fish895623");
@@ -37,12 +36,12 @@ public class App {
 
     URL obj = new URL(apiAddress);
     HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-    //전송방식
+    // 전송방식
     con.setRequestMethod("GET");
-    //Request Header 정의
+    // Request Header 정의
     con.setRequestProperty("User-Agent", USER_AGENT);
-    con.setConnectTimeout(10000);       //컨텍션타임아웃 10초
-    con.setReadTimeout(5000);           //컨텐츠조회 타임아웃 5총
+    con.setConnectTimeout(10000); // 컨텍션타임아웃 10초
+    con.setReadTimeout(5000); // 컨텐츠조회 타임아웃 5총
 
     int responseCode = con.getResponseCode();
 
@@ -67,5 +66,4 @@ public class App {
       e.printStackTrace();
     }
   }
-
 }

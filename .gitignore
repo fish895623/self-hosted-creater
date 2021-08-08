@@ -1,8 +1,12 @@
 .idea/
 target/
 *.json
+.vscode/
 
 # eclipse
 .classpath
 .project
 .settings/
+
+# gradle
+.gradle/

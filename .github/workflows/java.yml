@@ -10,7 +10,7 @@ jobs:
   # This workflow contains a single job called "build"
   test:
     runs-on: ubuntu-latest
-    if: github.event == 'push'
+#     if: github.event == 'push'
     strategy:
       matrix:
         java: ['8', '11']

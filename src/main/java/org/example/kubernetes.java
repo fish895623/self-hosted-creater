@@ -21,7 +21,8 @@ public class kubernetes {
         Configuration.setDefaultApiClient(client);
         CoreV1Api api = new CoreV1Api();
 
-        V1PodList list = api.listPodForAllNamespaces(null, null, null, null, null, null, null, null, null, null);
+        V1PodList list = api.listPodForAllNamespaces(null, null, null, null,
+                null, null, null, null, null, null);
         for (V1Pod item : list.getItems()) {
             System.out.println(Objects.requireNonNull(item.getMetadata()).getName());
         }

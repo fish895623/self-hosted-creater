@@ -19,10 +19,10 @@ public class App {
     StringBuilder getData = httpsConn.getHttpGET("fish895623");
     httpsConn.saveFile(getData);
 
-    httpsConn.using_JsonParser2("json_github.json");
+    httpsConn.using_JsonParser("json_github.json");
   }
 
-  private void using_JsonParser2(String filename) throws FileNotFoundException {
+  private void using_JsonParser(String filename) throws FileNotFoundException {
     Gson gson = new Gson();
     JsonGithub[] jsonArray = gson.fromJson(new FileReader(filename), JsonGithub[].class);
     for (JsonGithub json_github : jsonArray) {

@@ -19,6 +19,7 @@ repositories {
 dependencies {
     implementation("com.google.code.gson:gson:2.8.7")
     implementation("io.kubernetes:client-java:13.0.0")
+    implementation("org.slf4j:slf4j-log4j12:1.7.7")
     testImplementation("junit:junit:4.13.2")
 }
 

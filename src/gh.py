@@ -1,9 +1,12 @@
-import requests
-import json
 from github import Github
 
-token = "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"
 
-g = Github(token)
-for repo in g.get_user().get_repos():
-    print(repo.full_name)
+class GH:
+    def __init__(self, token) -> None:
+        self.token = token
+        pass
+
+    def __call__(self):
+        g = Github(self.token)
+        for repo in g.get_user().get_repos():
+            print(repo.full_name)

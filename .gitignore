@@ -3,3 +3,4 @@ target/
 *.json
 .vscode/
 .project
+__pycache__/

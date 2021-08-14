@@ -1,7 +1,13 @@
 import sys
 from subprocess import PIPE, Popen
+from .kube import kubectl_version
 
 import requests
+
+
+def __init__(self, version=kubectl_version()):
+    self.version = version
+    pass
 
 
 def kubectl_version() -> str:

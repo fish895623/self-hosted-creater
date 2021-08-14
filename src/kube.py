@@ -1,15 +1,12 @@
-from kubernetes import client, config, watch
+from subprocess import Popen, PIPE
 
-config.load_kube_config(config_file="config.yml")
 
-v1 = client.CoreV1Api()
-count = 10
-w = watch.Watch()
-try:
-    for event in w.stream(v1.list_namespace, _request_timeout=5):
-        print("Event: %s %s" % (event["type"], event["object"].metadata.name))
-        count -= 1
-        if not count:
-            w.stop()
-except:
-    pass
+def run(args: str):
+    comm = Popen(args.split(), stdout=PIPE, stderr=PIPE)
+    stdout, stderr = comm.communicate()
+    return stdout, stderr
+
+
+if __name__ == "__main__":
+    stdout, _ = run("ls -ahlF")
+    print(stdout.decode('utf-8'))

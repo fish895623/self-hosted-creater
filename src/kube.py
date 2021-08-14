@@ -1,16 +1,16 @@
-from subprocess import Popen, PIPE
+import sys
+from subprocess import PIPE, Popen
+
+import requests
 
 
-def main():
-    stdout, _ = run("ls -ahlF")
-    print(stdout.decode("utf-8"))
+def kubectl_version() -> str:
+    return requests.get("https://dl.k8s.io/release/stable.txt").text
 
 
 def run(args: str):
-    comm = Popen(args.split(), stdout=PIPE, stderr=PIPE)
-    stdout, stderr = comm.communicate()
-    return stdout, stderr
-
-
-if __name__ == "__main__":
-    main()
+    with Popen(args.split(), stdout=PIPE, stderr=PIPE, shell=True) as process:
+        with open('test.log', 'w') as f:
+            for c in iter(lambda: process.stdout.read(1), ''):
+                sys.stdout.write(c.decode('utf-8'))
+                f.write(c.decode('utf-8'))

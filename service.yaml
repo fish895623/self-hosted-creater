@@ -1,0 +1,45 @@
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: transformer
+#   labels:
+#     name: baz
+apiVersion: v1
+kind: Service
+metadata:
+  name: transformer-service
+  labels:
+    run: transformer
+spec:
+  ports:
+    - port: 80
+      nodePort: 30081
+      protocol: TCP
+      targetPort: 80
+  selector:
+    run: transformer
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transformer-deployment
+spec:
+  selector:
+    matchLabels:
+      run: transformer
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: transformer
+    spec:
+      containers:
+        - name: transformer
+          image: nginx
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 10Mi
+              memory: 128M

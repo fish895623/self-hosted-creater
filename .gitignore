@@ -4,3 +4,4 @@ target/
 .vscode/
 .project
 __pycache__/
+*.yml

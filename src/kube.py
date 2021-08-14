@@ -1,6 +1,11 @@
 from subprocess import Popen, PIPE
 
 
+def main():
+    stdout, _ = run("ls -ahlF")
+    print(stdout.decode("utf-8"))
+
+
 def run(args: str):
     comm = Popen(args.split(), stdout=PIPE, stderr=PIPE)
     stdout, stderr = comm.communicate()
@@ -8,5 +13,4 @@ def run(args: str):
 
 
 if __name__ == "__main__":
-    stdout, _ = run("ls -ahlF")
-    print(stdout.decode('utf-8'))
+    main()

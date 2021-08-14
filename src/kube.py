@@ -11,6 +11,7 @@ class kubernet:
         self.filename = filename
         pass
 
+    # TODO - Check Download finished and rquired to download
     def kubectl_download(self):
         url = "https://dl.k8s.io/release/" + self.version + "/bin/linux/amd64/kubectl"
         with open(file=self.filename, mode="wb") as file:

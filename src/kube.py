@@ -39,7 +39,6 @@ class kubernet:
         else:
             return False
 
-    # TODO - Check Download finished and rquired to download
     def kubectl_download(self) -> None:
         if self.kubectl_check_version():
             print("Version Matched!!")

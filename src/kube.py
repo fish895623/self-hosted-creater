@@ -62,6 +62,9 @@ class Kubernet:
         def set_config(self) -> None:
             os.environ["KUBECONFIG"] = self.config_path
 
+        def apply(self, file) -> None:
+            utils.run("kube apply -f %s" % file)
+
         class Namespace:
             def __init__(self):
                 self.namespace = "default"

@@ -11,19 +11,23 @@ def kubectl_version() -> str:
 
 
 class kubernet:
-    def __init__(self, version=kubectl_version(), filename="kubectl"):
+    def __init__(
+        self,
+        version=kubectl_version(),
+        filename="kubectl",
+    ) -> None:
         self.version = version
         self.filename = filename
         pass
 
-    def kubectl_exist(self):
+    def kubectl_exist(self) -> bool:
         filename = Path(self.filename)
         if filename.is_file():
             return True
         else:
             return False
 
-    def kubectl_check_version(self):
+    def kubectl_check_version(self) -> bool:
         assert self.kubectl_exist()
         print("Already exist!!")
         print("Check Version...")
@@ -36,7 +40,7 @@ class kubernet:
             return False
 
     # TODO - Check Download finished and rquired to download
-    def kubectl_download(self):
+    def kubectl_download(self) -> None:
         if self.kubectl_check_version():
             print("Version Matched!!")
             pass

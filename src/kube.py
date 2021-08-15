@@ -54,9 +54,13 @@ class Kubernet:
                 file.write(response.content)
 
     class Controller:
-        def __init__(self, config_path: str) -> None:
+        def __init__(self, config_path=os.path.expanduser("~/.kube/config")) -> None:
             self.config_path = config_path
+            self.namespace = "default"
             pass
 
-        def set_config(self):
+        def set_config(self)->None:
             os.environ["KUBECONFIG"] = self.config_path
+
+        def namespace_set_name(self, namespace):
+            self.namespace = namespace

@@ -25,9 +25,10 @@ class kubernet:
 
     def kubectl_check_version(self):
         assert self.kubectl_exist()
+        print("Already exist!!")
+        print("Check Version...")
         output, _ = utils.run("kubectl version")
         output = output.decode("utf-8")
-        print(output)
         r = re.search('''GitVersion:"%s"''' % self.version, output)
         if r:
             return True
@@ -37,9 +38,13 @@ class kubernet:
     # TODO - Check Download finished and rquired to download
     def kubectl_download(self):
         if self.kubectl_check_version():
+            print("Version Matched!!")
             pass
         else:
-            url = "https://dl.k8s.io/release/" + self.version + "/bin/linux/amd64/kubectl"
+            print("New Version Released")
+            url = (
+                "https://dl.k8s.io/release/" + self.version + "/bin/linux/amd64/kubectl"
+            )
             with open(file=self.filename, mode="wb") as file:
                 response = requests.get(url)
                 file.write(response.content)

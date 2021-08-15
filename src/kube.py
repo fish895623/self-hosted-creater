@@ -1,3 +1,4 @@
+import os
 import re
 from pathlib import Path
 
@@ -10,7 +11,7 @@ def kubectl_version() -> str:
     return requests.get("https://dl.k8s.io/release/stable.txt").text
 
 
-class kubernet:
+class Kubernet:
     def __init__(
         self,
         version=kubectl_version(),
@@ -51,3 +52,11 @@ class kubernet:
             with open(file=self.filename, mode="wb") as file:
                 response = requests.get(url)
                 file.write(response.content)
+
+    class Controller:
+        def __init__(self, config_path: str) -> None:
+            self.config_path = config_path
+            pass
+
+        def set_config(self):
+            os.environ["KUBECONFIG"] = self.config_path

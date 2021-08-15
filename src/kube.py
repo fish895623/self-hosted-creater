@@ -1,4 +1,9 @@
+import re
+from pathlib import Path
+
 import requests
+
+from . import utils
 
 
 def kubectl_version() -> str:
@@ -11,9 +16,30 @@ class kubernet:
         self.filename = filename
         pass
 
+    def kubectl_exist(self):
+        filename = Path(self.filename)
+        if filename.is_file():
+            return True
+        else:
+            return False
+
+    def kubectl_check_version(self):
+        assert self.kubectl_exist()
+        output, _ = utils.run("kubectl version")
+        output = output.decode("utf-8")
+        print(output)
+        r = re.search('''GitVersion:"%s"''' % self.version, output)
+        if r:
+            return True
+        else:
+            return False
+
     # TODO - Check Download finished and rquired to download
     def kubectl_download(self):
-        url = "https://dl.k8s.io/release/" + self.version + "/bin/linux/amd64/kubectl"
-        with open(file=self.filename, mode="wb") as file:
-            response = requests.get(url)
-            file.write(response.content)
+        if self.kubectl_check_version():
+            pass
+        else:
+            url = "https://dl.k8s.io/release/" + self.version + "/bin/linux/amd64/kubectl"
+            with open(file=self.filename, mode="wb") as file:
+                response = requests.get(url)
+                file.write(response.content)

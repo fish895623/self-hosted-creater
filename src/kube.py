@@ -63,7 +63,10 @@ class Kubernet:
             os.environ["KUBECONFIG"] = self.config_path
 
         def apply(self, file) -> None:
-            utils.run("kube apply -f %s" % file)
+            utils.run("kubectl apply -f %s" % file)
+
+        def delete(self, file) -> None:
+            utils.run("kubectl delete -f %s" % file)
 
         class Namespace:
             def __init__(self):

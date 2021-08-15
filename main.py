@@ -1,9 +1,8 @@
 import json
-from src import gh
+from src import utils
+from src.kube import kubernet
 
 if __name__ == "__main__":
-    with open(file="token.json", mode="r") as f:
-        data = f.read()
-        token = json.loads(data)["token"]
-
-    gh.GH(token=token)()
+    kubernet().kubectl_download()
+    # a, b = utils.run("kubectl get nodes")
+    # print(a.decode("utf-8"))

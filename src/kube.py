@@ -56,11 +56,40 @@ class Kubernet:
     class Controller:
         def __init__(self, config_path=os.path.expanduser("~/.kube/config")) -> None:
             self.config_path = config_path
-            self.namespace = "default"
+            self.namespace = self.Namespace().namespace
             pass
 
-        def set_config(self)->None:
+        def set_config(self) -> None:
             os.environ["KUBECONFIG"] = self.config_path
 
-        def namespace_set_name(self, namespace):
-            self.namespace = namespace
+        class Namespace:
+            def __init__(self):
+                self.namespace = "default"
+
+            def name(
+                self,
+                namespace: str,
+            ) -> None:
+                self.namespace = namespace
+                print(self.namespace)
+                pass
+
+            def get(self) -> list:
+                output, _ = utils.run("kubectl get namespaces")
+                output = output.decode("utf-8").split()[3:]
+                return output
+
+            def exist(self) -> bool:
+                if self.namespace in self.get():
+                    return True
+                else:
+                    return False
+
+            def create(self):
+                if self.exist():
+                    pass
+                else:
+                    utils.run("kubectl create namespace %s" % self.namespace)
+
+            def delete(self):
+                utils.run("kubectl delete namespace %s" % self.namespace)
